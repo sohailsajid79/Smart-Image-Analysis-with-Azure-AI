@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Container, TextField, Button, Typography, Box, Paper, IconButton } from "@mui/material";
-import RefreshIcon from '@mui/icons-material/Refresh';
+import {
+  Container,
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Paper,
+  IconButton,
+} from "@mui/material";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 function App() {
   const [input, setInput] = useState("");
@@ -44,14 +52,32 @@ function App() {
             rows={4}
             inputProps={{ style: { textAlign: "center", fontSize: "1.2em" } }}
           />
-          <Box mt={2} display="flex" justifyContent="center" alignItems="center">
-            <Button variant="contained" color="primary" onClick={handleAnalyseImage}>
+          <Box
+            mt={2}
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAnalyseImage}
+            >
               Analyse Image
             </Button>
-            <Button variant="contained" color="secondary" onClick={handleGenerateImage} style={{ marginLeft: '10px' }}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleGenerateImage}
+              style={{ marginLeft: "10px" }}
+            >
               Generate Image
             </Button>
-            <IconButton onClick={handleRefresh} color="primary" style={{ marginLeft: '10px' }}>
+            <IconButton
+              onClick={handleRefresh}
+              color="primary"
+              style={{ marginLeft: "10px" }}
+            >
               <RefreshIcon />
             </IconButton>
           </Box>
@@ -61,9 +87,7 @@ function App() {
                 <Typography variant="h6" gutterBottom>
                   Output
                 </Typography>
-                <Typography variant="body1">
-                  {output}
-                </Typography>
+                <Typography variant="body1">{output}</Typography>
               </Paper>
             </Box>
           )}
