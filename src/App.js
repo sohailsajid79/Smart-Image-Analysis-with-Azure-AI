@@ -1,24 +1,29 @@
 import React, { useState } from "react";
 import "./App.css";
-import { Container, TextField, Button, Typography, Box } from "@mui/material";
+import { Container, TextField, Button, Typography, Box, Paper, IconButton } from "@mui/material";
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 function App() {
   const [input, setInput] = useState("");
-  const [cursorPosition, setCursorPosition] = useState(0);
+  const [output, setOutput] = useState("");
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
-    setCursorPosition(e.target.selectionStart);
   };
 
   const handleAnalyseImage = () => {
     // Call the image analysis function here
-    console.log("Image analysis triggered with URL/Prompt:", input);
+    setOutput(`Analysis result for: ${input}`);
   };
 
   const handleGenerateImage = () => {
     // Call the image generation function here
-    console.log("Image generation triggered with URL/Prompt:", input);
+    setOutput(`Generated image for: ${input}`);
+  };
+
+  const handleRefresh = () => {
+    setInput("");
+    setOutput("");
   };
 
   return (
@@ -31,8 +36,7 @@ function App() {
           <TextField
             value={input}
             onChange={handleInputChange}
-            onClick={(e) => setCursorPosition(e.target.selectionStart)}
-            placeholder="Enter image URL or text to generate image"
+            placeholder="Please enter the image URL or a prompt to create an image."
             fullWidth
             variant="outlined"
             margin="normal"
@@ -40,23 +44,29 @@ function App() {
             rows={4}
             inputProps={{ style: { textAlign: "center", fontSize: "1.2em" } }}
           />
-          <Box mt={2}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleAnalyseImage}
-            >
+          <Box mt={2} display="flex" justifyContent="center" alignItems="center">
+            <Button variant="contained" color="primary" onClick={handleAnalyseImage}>
               Analyse Image
             </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={handleGenerateImage}
-              style={{ marginLeft: "10px" }}
-            >
+            <Button variant="contained" color="secondary" onClick={handleGenerateImage} style={{ marginLeft: '10px' }}>
               Generate Image
             </Button>
+            <IconButton onClick={handleRefresh} color="primary" style={{ marginLeft: '10px' }}>
+              <RefreshIcon />
+            </IconButton>
           </Box>
+          {output && (
+            <Box mt={4}>
+              <Paper elevation={3} className="output-box">
+                <Typography variant="h6" gutterBottom>
+                  Output
+                </Typography>
+                <Typography variant="body1">
+                  {output}
+                </Typography>
+              </Paper>
+            </Box>
+          )}
         </Box>
       </Container>
     </div>
