@@ -29,7 +29,7 @@ jobs:
       - name: Build project
         id: build
         run: |
-          npm run ai-web-app
+          npm run build
           echo "::set-output name=build_folder::$(pwd)/build"
 
       - name: List build directory contents
