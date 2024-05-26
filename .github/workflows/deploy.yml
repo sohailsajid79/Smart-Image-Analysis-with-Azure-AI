@@ -47,6 +47,7 @@ jobs:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
+          id: builddeploy
 
           ###### Repository/Build Configurations ######
           app_location: "/" # App source code path relative to repository root
