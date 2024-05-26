@@ -29,8 +29,11 @@ jobs:
       - name: Build project
         id: build
         run: |
-          npm run build
+          npm run ai-web-app
           echo "::set-output name=build_folder::$(pwd)/build"
+
+      - name: List build directory contents
+        run: ls -al $(pwd)/build
 
   deploy_job:
     needs: build_job
@@ -39,6 +42,9 @@ jobs:
     name: Deploy Job
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
