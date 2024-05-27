@@ -8,30 +8,75 @@ import {
   Box,
   Paper,
   IconButton,
+  CircularProgress,
 } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
 function App() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
   };
 
-  const handleAnalyseImage = () => {
-    // Call the image analysis function here
-    setOutput(`Analysis result for: ${input}`);
+  const handleAnalyseImage = async () => {
+    if (!input) {
+      setImageUrl("");
+      return;
+    }
+    setLoading(true);
+    try {
+      const response = await fetch("http://localhost:5001/analyze-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ imageUrl: input }),
+      });
+      const data = await response.json();
+      if (data.caption) {
+        //console.log(`Analysis result for: ${input}`);
+        setOutput(`Caption: ${data.caption}`);
+        setImageUrl(input); // Store the image URL
+      } else {
+        //console.log(`No caption found for: ${input}`);
+        setOutput("No caption found.");
+        setImageUrl(""); // Clear the image URL if no caption is found
+      }
+    } catch (error) {
+      //console.error("Error analyzing image:", error);
+      setOutput("Error analyzing image.");
+      setImageUrl(""); // Clear the image URL on error
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleGenerateImage = () => {
-    // Call the image generation function here
     setOutput(`Generated image for: ${input}`);
+    setImageUrl(input); // Store the image URL
   };
 
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
+    // Clear the client-side state
     setInput("");
     setOutput("");
+    setImageUrl("");
+
+    // Make a request to the backend to clear/reset data
+    try {
+      await fetch("http://localhost:5001/clear-request", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (error) {
+      console.error("Error clearing request:", error);
+    }
   };
 
   return (
@@ -62,6 +107,7 @@ function App() {
               variant="contained"
               color="primary"
               onClick={handleAnalyseImage}
+              disabled={loading} // Disable the button when loading
             >
               Analyse Image
             </Button>
@@ -70,6 +116,7 @@ function App() {
               color="secondary"
               onClick={handleGenerateImage}
               style={{ marginLeft: "10px" }}
+              disabled={loading} // Disable the button when loading
             >
               Generate Image
             </Button>
@@ -77,11 +124,17 @@ function App() {
               onClick={handleRefresh}
               color="primary"
               style={{ marginLeft: "10px" }}
+              disabled={loading} // Disable the button when loading
             >
               <RefreshIcon />
             </IconButton>
           </Box>
-          {output && (
+          {loading && (
+            <Box mt={4} display="flex" justifyContent="center">
+              <CircularProgress />
+            </Box>
+          )}
+          {output && !loading && (
             <Box mt={4}>
               <Paper elevation={3} className="output-box">
                 <Typography variant="h6" gutterBottom>
@@ -89,6 +142,11 @@ function App() {
                 </Typography>
                 <Typography variant="body1">{output}</Typography>
               </Paper>
+            </Box>
+          )}
+          {imageUrl && !loading && (
+            <Box mt={4}>
+              <img src={imageUrl} alt="Analyzed" style={{ maxWidth: "100%" }} />
             </Box>
           )}
         </Box>
