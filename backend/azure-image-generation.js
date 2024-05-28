@@ -18,10 +18,9 @@ const generateImage = async (prompt) => {
     //console.log(response.data); // Log the response data for debugging
 
     // Extract and return the URL of the generated image
-    const imageUrl = response.data.data[0].url;
-    const revisedPrompt = response.data.prompt;
+    const imageUrl = response.data[0].url;
 
-    return { imageUrl, revisedPrompt }; // Return the URL and revised prompt of the generated image
+    return { imageUrl }; // Return the URL of the generated image
   } catch (error) {
     // Handle any errors that occur during the API request
     console.error("Error generating image:", error); // Log the error message
