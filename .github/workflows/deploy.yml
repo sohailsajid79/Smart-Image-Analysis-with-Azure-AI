@@ -9,6 +9,12 @@ jobs:
   build_and_deploy_job:
     runs-on: ubuntu-latest
 
+    env:
+      VISION_ENDPOINT: ${{ secrets.VISION_ENDPOINT }}
+      VISION_KEY: ${{ secrets.VISION_KEY }}
+      OPENAI_ORG_ID: ${{ secrets.OPENAI_ORG_ID }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
     name: Build and Deploy Job
 
     steps:
