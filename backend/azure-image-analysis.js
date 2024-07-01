@@ -39,5 +39,8 @@ async function analyzeImageFromUrl(imageUrl) {
   }
   return null; // Return null if no caption is found
 }
+function isConfigured() {
+  return !!process.env["VISION_ENDPOINT"] && !!process.env["VISION_KEY"];
+}
 
-module.exports = { analyzeImageFromUrl };
+module.exports = { analyzeImageFromUrl, isConfigured };

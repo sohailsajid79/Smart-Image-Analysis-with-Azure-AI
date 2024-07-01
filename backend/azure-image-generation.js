@@ -27,6 +27,9 @@ const generateImage = async (prompt) => {
     throw new Error("Failed to generate image"); // Throw a new error to be handled by the calling function
   }
 };
+function isConfigured() {
+  return !!process.env.OPENAI_API_KEY && !!process.env.OPENAI_ORGANIZATION_ID;
+}
 
 // Export the generateImage function so it can be used in other parts of the application
-module.exports = { generateImage };
+module.exports = { generateImage, isConfigured };

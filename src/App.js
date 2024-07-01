@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import {
   Container,
@@ -12,11 +12,19 @@ import {
 } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
+import { isConfigured as isAnalysisConfigured } from "./azure-image-analysis"; // Symlinked import
+import { isConfigured as isGenerationConfigured } from "./azure-image-generation"; // Symlinked import
+
 function App() {
   const [input, setInput] = useState(""); // State to store the user input
   const [output, setOutput] = useState(""); // State to store the output message
   const [imageUrl, setImageUrl] = useState(""); // State to store the generated or analyzed image URL
   const [loading, setLoading] = useState(false); // State to manage loading indicator
+  const [isConfigured, setIsConfigured] = useState(true); // State to check if the app is configured
+
+  useEffect(() => {
+    setIsConfigured(isAnalysisConfigured() && isGenerationConfigured()); // Check if both analysis and generation js files are configured
+  }, []);
 
   // Function to handle input change in the text field
   const handleInputChange = (e) => {
@@ -116,6 +124,24 @@ function App() {
       console.error("Error clearing request:", error); // Log any errors during the fetch request
     }
   };
+
+  if (!isConfigured) {
+    return (
+      <div className="App">
+        <Container maxWidth="sm" className="app-container">
+          <Box textAlign="center" mt={5}>
+            <Typography variant="h3" gutterBottom>
+              Configuration Error
+            </Typography>
+            <Typography variant="body1" color="error">
+              The application is not configured properly. Please set the
+              required environment variables and restart the application.
+            </Typography>
+          </Box>
+        </Container>
+      </div>
+    );
+  }
 
   return (
     <div className="App">
