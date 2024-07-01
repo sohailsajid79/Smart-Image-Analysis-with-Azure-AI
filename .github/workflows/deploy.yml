@@ -5,6 +5,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build_and_deploy_job:
@@ -16,29 +19,12 @@ jobs:
       OPENAI_ORG_ID: ${{ secrets.OPENAI_ORG_ID }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
-    name: Build and Deploy Job
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           submodules: true
           lfs: false
-
-      - name: Cache node modules
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install dependencies
-        run: npm install
-
-        ######
-      - name: Build the project #
-        run: npm run build #
 
       - name: Build And Deploy
         id: builddeploy
