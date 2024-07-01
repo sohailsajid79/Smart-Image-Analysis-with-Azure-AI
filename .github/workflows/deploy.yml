@@ -1,10 +1,10 @@
 name: Build & Deploy to Azure Static Web App
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   build_and_deploy_job:
@@ -36,8 +36,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build the project
-        run: npm run build
+        ######
+      - name: Build the project #
+        run: npm run build #
 
       - name: Build And Deploy
         id: builddeploy
