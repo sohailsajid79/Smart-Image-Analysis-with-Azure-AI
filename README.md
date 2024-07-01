@@ -4,7 +4,7 @@
 
 # AI Image Web App
 
-This project is in response to Microsoft's challenge project - add image analysis and generation capabilities to your application.
+This project is in response to [Microsoft's challenge project](https://learn.microsoft.com/en-us/training/modules/challenge-project-add-image-analysis-generation-to-app/?WT.mc_id=academic-114319-gwynethp) - add image analysis and generation capabilities to your application.
 
 ## Table of Contents
 
@@ -55,7 +55,7 @@ The UI allows users to analyse and generate images using Azure AI Vision & OpenA
 
    - Built with Node.js (Express.js).
    - Hosted on Azure App Services.
-   - Endpoints:
+   - server.js Endpoints:
      - `/analyze-image`: Analyses an image URL using Azure AI Vision service.
      - `/generate-image`: Generates an image based on a text prompt using OpenAI Dall-E 3 model.
      - `/clear-request`: Clear the user input data.
@@ -77,8 +77,8 @@ The UI allows users to analyse and generate images using Azure AI Vision & OpenA
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/your-username/computer-vision-app.git
-   cd computer-vision-app
+   git clone https://github.com/sohailsajid79/analyse-and-generate-images-with-Azure-AI.git
+   cd analyse-and-generate-images-with-Azure-AI
    ```
 
 2. Install frontend dependencies:

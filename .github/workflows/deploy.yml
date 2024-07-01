@@ -40,7 +40,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
 
-          ###### Repository/Build Configurations ######
+          ##### Repository/Build Configurations #####
           app_location: "/" # App source code path relative to repository root
           ###### api_location: "" # Api source code path relative to repository root - optional
           output_location: "build" # Built app content directory, relative to app_location - optional
