@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-const path = require("path");
-=======
 const webpack = require("webpack");
->>>>>>> dev
 
 module.exports = {
   resolve: {
