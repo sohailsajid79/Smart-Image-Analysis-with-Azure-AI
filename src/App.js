@@ -31,7 +31,7 @@ function App() {
     setInput(e.target.value); // Update the input state with the new value
   };
 
-  // Function to handle analyzing an image URL
+  // Function to handle analysing an image URL
   const handleAnalyseImage = async () => {
     // Check if input is empty
     if (!input.trim()) {
@@ -61,7 +61,7 @@ function App() {
       }
     } catch (error) {
       //console.error("Error analyzing image:", error);
-      setOutput("Error analyzing image."); // Handle any errors during the fetch
+      setOutput("Error analysing image."); // Handle any errors during the fetch
       setImageUrl(""); // Clear the image URL on error
     } finally {
       setLoading(false); // Set loading to false to hide the loading indicator
