@@ -1,10 +1,20 @@
+const webpack = require("webpack");
+
 module.exports = {
-  //...
   resolve: {
-    fallback: {
-      path: require.resolve("path-browserify"),
-      os: require.resolve("os-browserify/browser"),
-      crypto: require.resolve("crypto-browserify"),
+    alias: {
+      buffer: "buffer",
     },
+    fallback: {
+      path: false,
+      os: false,
+      crypto: false,
+      buffer: require.resolve("buffer/"),
+    },
+    plugins: [
+      new webpack.ProvidePlugin({
+        Buffer: ["buffer", "Buffer"],
+      }),
+    ],
   },
 };
